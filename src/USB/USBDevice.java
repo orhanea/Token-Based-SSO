@@ -31,5 +31,8 @@ public abstract class USBDevice {
     public String getDeviceType() {
         return this.deviceType;
     }
+
+    public abstract boolean verifyPin(int pin);
+
 }
 

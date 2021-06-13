@@ -61,4 +61,12 @@ public class SmartCardKit {
         }
         return builder.toString();
     }
+
+    public boolean verifyPin(USBDevice device, int pin) {
+        return device.verifyPin(pin);
+    }
+
+    public void deleteFile(USBDevice device) {
+        device.getContents().remove(selectedFile);
+    }
 }

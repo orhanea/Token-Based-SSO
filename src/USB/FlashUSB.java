@@ -13,4 +13,9 @@ class FlashUSB extends USBDevice {
         this.isPinVerified = true;
         this.deviceType = FLASH_USB_TYPE;
     }
+
+    @Override
+    public boolean verifyPin(int pin) {
+        return true;
+    }
 }

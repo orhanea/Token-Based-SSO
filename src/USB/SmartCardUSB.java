@@ -14,4 +14,10 @@ public class SmartCardUSB extends USBDevice {
         this.isPinVerified = false;
         this.pin = 2234;
     }
+
+    @Override
+    public boolean verifyPin(int pin) {
+        isPinVerified = this.pin == pin;
+        return isPinVerified;
+    }
 }
