@@ -1,3 +1,5 @@
+import USB.USBDevice;
+
 /**
  * @author  anıl
  * @author  cankurtaran

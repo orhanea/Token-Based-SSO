@@ -1,3 +1,5 @@
+package USB;
+
 import java.util.Map;
 
 /**
@@ -7,14 +9,16 @@ import java.util.Map;
  * @author  erdoğan
  * @project TokenBasedSSO
  */
-public class USBDevice {
+
+public abstract class USBDevice {
     public static final String FLASH_USB_TYPE = "FlashUsb";
     public static final String SMART_CARD_TYPE = "SmartCard";
 
     public String path;
-    boolean isPinVerified;
-    private int PIN;
-    private Map<String, String> contents;
+    protected String deviceType;
+    protected boolean isPinVerified;
+    protected int pin;
+    protected Map<String, String> contents;
 
     public Map<String, String> getContents() {
         return contents;
@@ -23,4 +27,9 @@ public class USBDevice {
     public void updateFileContent(String fileName, String data) {
         contents.put(fileName, data);
     }
+
+    public String getDeviceType() {
+        return this.deviceType;
+    }
 }
+

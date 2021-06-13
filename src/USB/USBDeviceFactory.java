@@ -1,3 +1,5 @@
+package USB;
+
 public class USBDeviceFactory {
     public USBDevice createDevice(String deviceType) {
         switch(deviceType) {
