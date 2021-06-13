@@ -1,18 +1,23 @@
+import USB.USBDevice;
+import USB.USBDeviceFactory;
+
 public class Port {
-    private final String portName;
+    private final String name;
+    private final USBDeviceFactory deviceFactory;
     private USBDevice attachedDevice;
     private boolean isAvailable;
-    private USBDeviceFactory deviceFactory;
 
-    public Port(String portName) {
-        this.portName = portName;
+    public Port(String name) {
+        this.name = name;
         this.isAvailable = true;
         this.deviceFactory = new USBDeviceFactory();
     }
 
-    public void attachDevice(String deviceType) {
+    public boolean attachDevice(String deviceType) {
+        if (!this.isAvailable) return false;
         this.attachedDevice = deviceFactory.createDevice(deviceType);
         this.isAvailable = false;
+        return true;
     }
 
     public void ejectDevice() {
@@ -20,8 +25,8 @@ public class Port {
         this.isAvailable = true;
     }
 
-    public String getPortName() {
-        return portName;
+    public String getName() {
+        return name;
     }
 
     public boolean isAvailable() {
