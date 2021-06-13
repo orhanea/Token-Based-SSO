@@ -1,8 +1,5 @@
 import USB.USBDevice;
-import utils.UserInputUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +16,7 @@ public class SmartCardKit {
             for (String p: ports) {
                 System.out.println(counter++ + p);
             }
-            int selectedOption = UserInputUtils.getValidIntOptionInput(1, ports.size());
+            int selectedOption = KitUtils.getValidIntOptionInput(1, ports.size());
             pluggedInDevice = collection.attachDeviceOnPort(ports.get(selectedOption - 1), USBDevice.SMART_CARD_TYPE);
         }
         return pluggedInDevice;
@@ -38,28 +35,11 @@ public class SmartCardKit {
     }
 
     public List<Map<String, String>> decryptData(String data) {
-        List<Map<String, String>> decryptedData = new ArrayList<>();
-        String[] accounts = data.split("\n");
-        for (String account: accounts) {
-            String[] fields = account.split(" ");
-            Map<String, String> accountMap = new HashMap<>();
-            accountMap.put("username", fields[0]);
-            accountMap.put("password", fields[1]);
-            decryptedData.add(accountMap);
-        }
-        return decryptedData;
+        return KitUtils.decryptData(data);
     }
 
     public String encryptData(List<Map<String, String>> data) {
-        StringBuilder builder = new StringBuilder();
-
-        for(Map<String, String> account: data) {
-            builder.append(account.get("username"));
-            builder.append(" ");
-            builder.append(account.get("password"));
-            builder.append("\n");
-        }
-        return builder.toString();
+        return KitUtils.encryptData(data);
     }
 
     public boolean verifyPin(USBDevice device, int pin) {
