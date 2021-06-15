@@ -4,8 +4,8 @@ public class Browser extends Subject {
     private String url;
     private boolean needsAuthentication;
 
-    public Browser(ArrayList<Observer> observers) {
-        super(observers);
+    public Browser() {
+        super();
         needsAuthentication = false;
     }
 
@@ -34,4 +34,5 @@ public class Browser extends Subject {
     public String getUrl() {
         return url;
     }
+
 }

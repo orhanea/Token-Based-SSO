@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public abstract class Subject {
     protected ArrayList<Observer> observers;
 
-    public Subject(ArrayList<Observer> observers){
-        this.observers=observers;
+    public Subject(){
+        this.observers = new ArrayList<>();
     }
 
     void addObserver(Observer observer){
