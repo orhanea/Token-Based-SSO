@@ -1,14 +1,26 @@
-import USB.USBDevice;
-
 import java.util.*;
 
-/**
- * @author  anıl
- * @author  cankurtaran
- * @author  sahin
- * @author  erdoğan
- * @project TokenBasedSSO
- */
+interface AuthenticationDeviceKit {
+
+    USBDevice waitForInsertion();
+
+    void open(String fileName);
+
+    void close(String fileName);
+
+    String readData(USBDevice device);
+
+    void writeData(USBDevice device, String data);
+
+    String encryptData(List<Account> accounts);
+
+    List<Account> decryptData(String data);
+
+    void delete(USBDevice device);
+
+    boolean verifyPin(USBDevice device, int pin);
+
+}
 
 public abstract class AuthenticationTemplate implements AuthenticationDeviceKit {
 
@@ -57,6 +69,45 @@ public abstract class AuthenticationTemplate implements AuthenticationDeviceKit 
             }
         }
         throw new VerifyError();
+    }
+}
+
+class AuthenticationTemplateFactory {
+    public AuthenticationTemplate createKit(String deviceType){
+
+        if(deviceType.equals(USBDevice.FLASH_USB_TYPE)){
+            return new USBAdapter(new USBKit());
+        }
+
+        if(deviceType.equals(USBDevice.SMART_CARD_TYPE)) {
+            return new SmartCardAdapter(new SmartCardKit());
+        }
+
+        return null;
+    }
+}
+
+class Account {
+
+    private String userName;
+    private String password;
+    private String URL;
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public Account(Map<String, String> data) {
+        this.userName = data.get("username");
+        this.password = data.get("password");
+    }
+
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", this.userName);
+        map.put("password", this.password);
+        return map;
     }
 }
 
