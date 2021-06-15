@@ -77,6 +77,7 @@ class KitUtils {
         List<Map<String, String>> decryptedData = new ArrayList<>();
         String[] accounts = data.split("\n");
         for (String account: accounts) {
+            System.out.println(account);
             String[] fields = account.split(" ");
             Map<String, String> accountMap = new HashMap<>();
             accountMap.put("username", fields[0]);
@@ -96,7 +97,7 @@ class KitUtils {
             if (!hasSelectedValidOption) {
                 System.out.println("Please select a valid option");
             }
-        } while (hasSelectedValidOption);
+        } while (!hasSelectedValidOption);
         return selectedOption;
     }
 }
