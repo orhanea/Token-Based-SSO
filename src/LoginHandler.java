@@ -18,6 +18,7 @@ public class LoginHandler implements Observer {
             return;
         }
         String deviceType = selectDeviceType();
+        System.out.println("Selected device: " + deviceType);
         List<Account> accounts = getAccountsOnDevice(deviceType);
         Account selectedAccount = selectOneOfTheAccounts(accounts);
         signInWithAccountOnBrowser(selectedAccount);
@@ -38,7 +39,7 @@ public class LoginHandler implements Observer {
         System.out.println("1 - Flash USB Token");
         System.out.println("2 - Smart Card USB");
         int selected = KitUtils.getValidIntOptionInput(1, 2);
-        return selected == 0 ? USBDevice.FLASH_USB_TYPE : USBDevice.SMART_CARD_TYPE;
+        return selected == 1 ? USBDevice.FLASH_USB_TYPE : USBDevice.SMART_CARD_TYPE;
     }
 
     private List<Account> getAccountsOnDevice(String deviceType) {
