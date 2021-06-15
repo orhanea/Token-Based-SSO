@@ -73,7 +73,7 @@ public abstract class AuthenticationTemplate implements AuthenticationDeviceKit 
 }
 
 class AuthenticationTemplateFactory {
-    public AuthenticationTemplate createKit(String deviceType){
+    public AuthenticationTemplate createTemplate(String deviceType){
 
         if(deviceType.equals(USBDevice.FLASH_USB_TYPE)){
             return new USBAdapter(new USBKit());

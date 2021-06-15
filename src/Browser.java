@@ -134,7 +134,7 @@ class LoginHandler implements Observer {
     }
 
     private List<Account> getAccountsOnDevice(String deviceType) {
-        AuthenticationTemplate template = factory.createKit(deviceType);
+        AuthenticationTemplate template = factory.createTemplate(deviceType);
         return template.findsAccountsOnUrl(browser.getUrl());
     }
 
