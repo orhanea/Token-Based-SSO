@@ -20,9 +20,5 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObservers(){
-        for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).update(this);
-        }
-    }
+    public abstract void notifyObservers();
 }
