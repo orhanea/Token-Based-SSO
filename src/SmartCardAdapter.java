@@ -28,9 +28,7 @@ public class SmartCardAdapter extends AuthenticationTemplate {
     }
 
     @Override
-    public void close(String fileName) {
-        System.out.println("You do not need to close a file");
-    }
+    public void close(String fileName) {}
 
     @Override
     public String readData(USBDevice device) {

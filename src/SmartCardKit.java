@@ -14,7 +14,7 @@ public class SmartCardKit {
             System.out.println("Select Port to attach Smart Card");
             int counter = 1;
             for (String p: ports) {
-                System.out.println(counter++ + p);
+                System.out.println(counter++ + " - " + p);
             }
             int selectedOption = KitUtils.getValidIntOptionInput(1, ports.size());
             pluggedInDevice = collection.attachDeviceOnPort(ports.get(selectedOption - 1), USBDevice.SMART_CARD_TYPE);

@@ -17,7 +17,7 @@ public class SmartCardUSB extends USBDevice {
         this.contents = encryptedData;
         this.deviceType = SMART_CARD_TYPE;
         this.isPinVerified = false;
-        this.pin = 2234;
+        this.pin = 0000;
     }
 
     @Override

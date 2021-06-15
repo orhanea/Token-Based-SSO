@@ -93,7 +93,7 @@ class KitUtils {
         boolean hasSelectedValidOption;
         do {
             selectedOption = scanner.nextInt();
-            hasSelectedValidOption = selectedOption <= min || selectedOption >= max;
+            hasSelectedValidOption = selectedOption <= max && selectedOption >= min;
             if (!hasSelectedValidOption) {
                 System.out.println("Please select a valid option");
             }

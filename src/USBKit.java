@@ -14,7 +14,7 @@ public class USBKit {
             System.out.println("Select Port to attach USB Token");
             int counter = 1;
             for (String p: ports) {
-                System.out.println(counter++ + p);
+                System.out.println(counter++ + " - " + p);
             }
             int selectedOption = KitUtils.getValidIntOptionInput(1, ports.size());
             pluggedInDevice = collection.attachDeviceOnPort(ports.get(selectedOption - 1), USBDevice.FLASH_USB_TYPE);

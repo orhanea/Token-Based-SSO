@@ -25,10 +25,11 @@ public class LoginHandler implements Observer {
     }
 
     private Account selectOneOfTheAccounts(List<Account> accounts) {
+        System.out.println("==================");
         System.out.println("Select one of the accounts");
         for (int i = 1; i <= accounts.size(); i++) {
             Account account = accounts.get(i-1);
-            System.out.println(i + account.getUserName());
+            System.out.println(i + " - " + account.getUserName());
         }
         int selectedOption = KitUtils.getValidIntOptionInput(1, accounts.size());
         return accounts.get(selectedOption - 1);

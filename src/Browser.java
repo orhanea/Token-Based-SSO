@@ -44,6 +44,7 @@ public class Browser extends Subject {
         browser.addObserver(loginHandler);
         Scanner scanner = new Scanner(System.in);
         while(true) {
+            System.out.println("=======================");
             System.out.println("Enter url to open");
             System.out.println("Type exit to terminate");
             String url = scanner.nextLine();
