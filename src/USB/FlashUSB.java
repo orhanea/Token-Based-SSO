@@ -4,7 +4,8 @@ import java.util.Map;
 
 class FlashUSB extends USBDevice {
     private static Map<String, String> encryptedData = Map.of(
-            "google.com", ""
+            "google.com", "asdlkasfg",
+            "facebook.com", "asdf10dgfakj"
     );
 
     public FlashUSB() {

@@ -4,7 +4,8 @@ import java.util.Map;
 
 public class SmartCardUSB extends USBDevice {
     private static Map<String, String> encryptedData = Map.of(
-            "google.com", ""
+            "google.com", "aasdfa1234",
+            "facebook.com", "asdffas2ldkg"
     );
 
     public SmartCardUSB() {
