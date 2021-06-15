@@ -9,18 +9,54 @@ import java.util.*;
  * @author  erdoğan
  * @project TokenBasedSSO
  */
+
 public abstract class AuthenticationTemplate implements AuthenticationDeviceKit {
 
     private USBDevice connectedDevice;
 
-    public Account[] findsAccountsOnUrl(String url){
+    public List<Account> findsAccountsOnUrl(String url) throws VerifyError {
+       connectedDevice = waitForInsertion();
+       askForPinAndVerifyIfNeeded();
+       open(url);
+       String accountsData = readData(connectedDevice);
+       List<Account> accounts = decryptData(accountsData);
+       close(url);
        return accounts;
     }
-    public void saveAccountsOnUrl(String url, Account[] accounts){
-
+    public void saveAccountsOnUrl(String url, List<Account> accounts) throws VerifyError {
+        connectedDevice = waitForInsertion();
+        askForPinAndVerifyIfNeeded();
+        open(url);
+        String encryptedData = encryptData(accounts);
+        writeData(connectedDevice, encryptedData);
+        close(url);
     }
-    public void deleteAccountsOnUrl(String url){
+    public void deleteAccountsOnUrl(String url) throws VerifyError {
+        connectedDevice = waitForInsertion();
+        askForPinAndVerifyIfNeeded();
+        open(url);
+        delete(connectedDevice);
+        close(url);
+    }
 
+    private void askForPinAndVerifyIfNeeded() throws VerifyError {
+        if (connectedDevice.isPinVerified()) {
+            return;
+        }
+        int tries = 0;
+        while (tries < 3) {
+            System.out.println("Enter your pin: ");
+            Scanner scanner = new Scanner(System.in);
+            int pin = scanner.nextInt();
+            boolean result = verifyPin(connectedDevice, pin);
+            if (result) {
+                return;
+            } else {
+                tries++;
+                System.out.println("Pin is wrong, try again!");
+            }
+        }
+        throw new VerifyError();
     }
 }
 

@@ -1,4 +1,6 @@
 import USB.USBDevice;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,8 @@ public class USBAdapter extends AuthenticationTemplate {
     }
 
     @Override
-    public void waitForInsertion() {
-        usbAdaptee.waitForUSBTokenInsertion();
+    public USBDevice waitForInsertion() {
+        return usbAdaptee.waitForUSBTokenInsertion();
     }
 
     @Override
@@ -38,26 +40,35 @@ public class USBAdapter extends AuthenticationTemplate {
     @Override
     public boolean verifyPin(USBDevice device, int pin) {
         System.out.println("pin is not required");
-        return false;
+        return true;
     }
 
     @Override
-    public String readAccounts(USBDevice device) {
+    public String readData(USBDevice device) {
         return usbAdaptee.readData(device);
     }
 
     @Override
-    public void writeAccount(USBDevice device, String data) {
+    public void writeData(USBDevice device, String data) {
         usbAdaptee.writeData(device,data);
     }
 
     @Override
-    public String encryptData(List<Map<String, String>> data) {
+    public String encryptData(List<Account> accounts) {
+        List<Map<String, String>> data = new ArrayList<>();
+        for (Account a: accounts) {
+            data.add(a.toMap());
+        }
         return usbAdaptee.encryptData(data);
     }
 
     @Override
-    public List<Map<String, String>> decryptData(String data) {
-        return usbAdaptee.decryptData(data);
+    public List<Account> decryptData(String data) {
+        List<Map<String, String>> rawList = usbAdaptee.decryptData(data);
+        List<Account> accounts = new ArrayList<>();
+        for(Map<String, String> accountData: rawList) {
+            accounts.add(new Account(accountData));
+        }
+        return accounts;
     }
 }

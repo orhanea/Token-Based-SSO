@@ -1,7 +1,6 @@
 import USB.USBDevice;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author  anıl
@@ -12,21 +11,19 @@ import java.util.Map;
  */
 public interface AuthenticationDeviceKit {
 
-    Account[] accounts = new Account[3];
-
-    void waitForInsertion();
+    USBDevice waitForInsertion();
 
     void open(String fileName);
 
     void close(String fileName);
 
-    String readAccounts(USBDevice device);
+    String readData(USBDevice device);
 
-    void writeAccount(USBDevice device, String data);
+    void writeData(USBDevice device, String data);
 
-    String encryptData(List<Map<String, String>> data);
+    String encryptData(List<Account> accounts);
 
-    List<Map<String, String>> decryptData(String data);
+    List<Account> decryptData(String data);
 
     void delete(USBDevice device);
 

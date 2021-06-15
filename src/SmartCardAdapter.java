@@ -1,4 +1,7 @@
 import USB.USBDevice;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +18,13 @@ public class SmartCardAdapter extends AuthenticationTemplate {
     }
 
     @Override
-    public void waitForInsertion() {
-        scAdaptee.waitForCardInsertion();
+    public USBDevice waitForInsertion() {
+        return scAdaptee.waitForCardInsertion();
     }
 
     @Override
     public void open(String fileName) {
-        System.out.println("You do not need to open a file");
+        scAdaptee.selectFile(fileName);
     }
 
     @Override
@@ -30,23 +33,32 @@ public class SmartCardAdapter extends AuthenticationTemplate {
     }
 
     @Override
-    public String readAccounts(USBDevice device) {
+    public String readData(USBDevice device) {
         return scAdaptee.readCard(device);
     }
 
     @Override
-    public void writeAccount(USBDevice device, String data) {
+    public void writeData(USBDevice device, String data) {
         scAdaptee.writeCard(device,data);
     }
 
     @Override
-    public String encryptData(List<Map<String, String>> data) {
+    public String encryptData(List<Account> accounts) {
+        List<Map<String, String>> data = new ArrayList<>();
+        for (Account a: accounts) {
+            data.add(a.toMap());
+        }
         return scAdaptee.encryptData(data);
     }
 
     @Override
-    public List<Map<String, String>> decryptData(String data) {
-        return scAdaptee.decryptData(data);
+    public List<Account> decryptData(String data) {
+        List<Map<String, String>> rawList = scAdaptee.decryptData(data);
+        List<Account> accounts = new ArrayList<>();
+        for(Map<String, String> accountData: rawList) {
+            accounts.add(new Account(accountData));
+        }
+        return accounts;
     }
 
     @Override

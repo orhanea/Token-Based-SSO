@@ -35,6 +35,10 @@ public abstract class USBDevice {
         return this.deviceType;
     }
 
+    public boolean isPinVerified() {
+        return this.isPinVerified;
+    }
+
     public abstract boolean verifyPin(int pin);
 }
 
